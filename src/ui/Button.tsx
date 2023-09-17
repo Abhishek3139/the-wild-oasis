@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 interface PropsType {
-  variation: "primary" | "secondary" | "danger"; // Define possible variations
-  size: "small" | "medium" | "large"; // Define possible sizes
+  variation?: "primary" | "secondary" | "danger"; // Define possible variations
+  size?: "small" | "medium" | "large"; // Define possible sizes
 }
 const sizes = {
   small: css`
