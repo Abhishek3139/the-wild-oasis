@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { ReactNode } from "react";
 interface formProps {
   label?: string;
   error?: string;
-  children?: ReactNode;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  children?: any;
 }
 const StyledFormRow = styled.div`
   display: grid;

@@ -5,6 +5,8 @@ import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 import Spinner from "../../ui/Spinner";
+import { useUpdateSetting } from "./useUpdateSetting";
+import { FocusEvent } from "react";
 
 function UpdateSettingsForm() {
   const {
@@ -16,15 +18,19 @@ function UpdateSettingsForm() {
     } = {},
     isLoading,
   } = useSettings();
-  // const { mutate: updateSetting, isLoading: isUpdating } = useUpdateSetting();
+  const { mutate, isLoading: isUpdating } = useUpdateSetting();
 
-  // return <Spinner />;
   if (isLoading) return <Spinner />;
 
-  function handleBlur() {
-    // const { value } = e.target;
-    // if (!value) return;
-    // updateSetting({ [field]: value });
+  function handleBlur(
+    e: // import { useUpdateSetting } from "features/settings/useUpdateSetting";
+    FocusEvent<HTMLInputElement, Element>,
+    field: string
+  ) {
+    const { value } = e.target;
+    if (!value) return;
+
+    mutate({ [field]: value });
   }
 
   // This time we are using UNCONTROLLED fields, so we will NOT store state
@@ -35,7 +41,7 @@ function UpdateSettingsForm() {
           type="number"
           defaultValue={minBookingLength}
           onBlur={(e) => handleBlur(e, "minBookingLength")}
-          // disabled={isUpdating}
+          disabled={isUpdating}
           id="min-nights"
         />
       </FormRow>
@@ -44,7 +50,7 @@ function UpdateSettingsForm() {
           type="number"
           defaultValue={maxBookingLength}
           onBlur={(e) => handleBlur(e, "maxBookingLength")}
-          // disabled={isUpdating}
+          disabled={isUpdating}
           id="max-nights"
         />
       </FormRow>
@@ -53,7 +59,7 @@ function UpdateSettingsForm() {
           type="number"
           defaultValue={maxGuestsPerBooking}
           onBlur={(e) => handleBlur(e, "maxGuestsPerBooking")}
-          // disabled={isUpdating}
+          disabled={isUpdating}
           id="max-guests"
         />
       </FormRow>
@@ -62,7 +68,7 @@ function UpdateSettingsForm() {
           type="number"
           defaultValue={breakfastPrice}
           onBlur={(e) => handleBlur(e, "breakfastPrice")}
-          // disabled={isUpdating}
+          disabled={isUpdating}
           id="breakfast-price"
         />
       </FormRow>

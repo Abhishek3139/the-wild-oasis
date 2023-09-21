@@ -3,6 +3,7 @@ interface PropsType {
   variation?: "primary" | "secondary" | "danger"; // Define possible variations
   size?: "small" | "medium" | "large"; // Define possible sizes
 }
+
 const sizes = {
   small: css`
     font-size: 1.2rem;
@@ -56,8 +57,8 @@ export const Button = styled.button<PropsType>`
   border-radius: var(--border-radius-sm);
   box-shadow: var(--shadow-sm);
 
-  ${(props) => sizes[props.size]}
-  ${(props) => variations[props.variation]} /* add hover  */
+  ${(props) => sizes[props?.size]}
+  ${(props) => variations[props?.variation]} /* add hover  */
   /* &:hover {
     background-color: var(--color-brand-700);
   } */
