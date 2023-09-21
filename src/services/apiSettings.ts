@@ -11,7 +11,12 @@ export async function getSettings() {
 }
 
 // We expect a newSetting object that looks like {setting: newValue}
-export async function updateSetting(newSetting) {
+export async function updateSetting(newSetting: {
+  minBookingLength?: string;
+  maxBookingLength?: string;
+  maxGuestsPerBooking?: string;
+  breakfastPrice?: string;
+}) {
   const { data, error } = await supabase
     .from("settings")
     .update(newSetting)
@@ -20,7 +25,6 @@ export async function updateSetting(newSetting) {
     .single();
 
   if (error) {
-    console.error(error);
     throw new Error("Settings could not be updated");
   }
   return data;

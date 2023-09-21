@@ -52,7 +52,7 @@ function CabinTable() {
       </TableHeader>
       {cabin?.map(
         (cabin: {
-          id: number;
+          id: void;
           created_at: string;
           name: string;
           maxCapacity: number;
@@ -61,7 +61,7 @@ function CabinTable() {
           description: string;
           image: string;
         }) => {
-          return <CabinRow key={cabin.id} cabin={cabin} />;
+          return <CabinRow key={cabin.created_at} cabin={cabin} />;
         }
       )}
     </Table>

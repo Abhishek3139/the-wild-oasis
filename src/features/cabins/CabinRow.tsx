@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import { formatCurrency } from "../../utils/helpers";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { delteCabin } from "../../services/apiCabins";
-import toast from "react-hot-toast/headless";
+import { useDeleteCabin } from "./useDeleteCabin";
+import { HiTrash } from "react-icons/hi2";
 interface PropsTypes {
   cabin: {
     id: void;
@@ -63,27 +62,26 @@ function CabinRow({ cabin }: PropsTypes) {
     regularPrice,
     discount,
   } = cabin;
-
-  const queryClient = useQueryClient();
-  const { isLoading: isDeleting, mutate } = useMutation({
-    mutationFn: delteCabin,
-    onSuccess: () => {
-      toast.success("cabin successfully Deleted");
-      queryClient.invalidateQueries({ queryKey: ["cabins"] });
-    },
-    onError: (error: string) => toast.error(error),
-  });
-
+  const { isDeleting, mutate } = useDeleteCabin();
   return (
     <TableRow role="row">
       <Img src={image} />
       <Cabin>{name}</Cabin>
       <div>Fits up to {maxCapacity} guests </div>
       <Price>{formatCurrency(regularPrice)}</Price>
-      <Discount>{formatCurrency(discount)}</Discount>
-      <button onClick={() => mutate(cabinId)} disabled={isDeleting}>
-        Delete
-      </button>
+      {discount ? (
+        <Discount>{formatCurrency(discount)}</Discount>
+      ) : (
+        <span>&mdash;</span>
+      )}
+      <div>
+        {/* <button>
+          <HiSquare2Stack />
+        </button> */}
+        <button onClick={() => mutate(cabinId)} disabled={isDeleting}>
+          <HiTrash />
+        </button>
+      </div>
     </TableRow>
   );
 }
