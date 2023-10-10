@@ -1,7 +1,8 @@
 import { formatDistance, parseISO } from "date-fns";
 import { differenceInDays } from "date-fns/esm";
 interface getTodayTupe {
-  end?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  end?: any;
 }
 // We want to make this function work for both Date objects and strings (which come from Supabase)
 export const subtractDates = (dateStr1: string, dateStr2: string) =>

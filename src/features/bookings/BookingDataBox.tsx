@@ -11,6 +11,7 @@ import DataItem from "../../ui/DataItem";
 import { Flag } from "../../ui/Flag";
 
 import { formatDistanceFromNow, formatCurrency } from "../../utils/helpers";
+import { allBookingData } from "./bookingModal";
 
 const StyledBookingDataBox = styled.section`
   /* Box */
@@ -68,7 +69,7 @@ const Guest = styled.div`
   }
 `;
 
-const Price = styled.div`
+const Price = styled.div<{ isPaid: boolean }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -102,7 +103,7 @@ const Footer = styled.footer`
 `;
 
 // A purely presentational component
-function BookingDataBox({ booking }) {
+function BookingDataBox(booking: allBookingData) {
   const {
     created_at,
     startDate,
@@ -110,7 +111,7 @@ function BookingDataBox({ booking }) {
     numNights,
     numGuests,
     cabinPrice,
-    extrasPrice,
+    extraPrice,
     totalPrice,
     hasBreakfast,
     observations,
@@ -169,7 +170,7 @@ function BookingDataBox({ booking }) {
 
             {hasBreakfast &&
               ` (${formatCurrency(cabinPrice)} cabin + ${formatCurrency(
-                extrasPrice
+                extraPrice
               )} breakfast)`}
           </DataItem>
 

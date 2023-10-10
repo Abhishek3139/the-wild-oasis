@@ -54,6 +54,7 @@ const Discount = styled.div`
 `;
 
 function CabinRow({ cabin }: PropsTypes) {
+
   const {
     id: cabinId,
     image,

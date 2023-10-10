@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+interface PropsType {}
 const StyledCheckbox = styled.div`
   display: flex;
   gap: 1.6rem;

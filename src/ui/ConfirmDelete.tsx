@@ -2,6 +2,11 @@ import styled from "styled-components";
 import Button from "./Button";
 import Heading from "./Heading";
 
+interface PropsType {
+  resourceName: string;
+  onConfirm: () => void;
+  disabled: boolean;
+}
 const StyledConfirmDelete = styled.div`
   width: 40rem;
   display: flex;
@@ -19,8 +24,11 @@ const StyledConfirmDelete = styled.div`
     gap: 1.2rem;
   }
 `;
-
-function ConfirmDelete({ resourceName, onConfirm, disabled }) {
+function ConfirmDelete({
+  resourceName,
+  // onConfirm
+  disabled,
+}: PropsType) {
   return (
     <StyledConfirmDelete>
       <Heading as="h3">Delete {resourceName}</Heading>
