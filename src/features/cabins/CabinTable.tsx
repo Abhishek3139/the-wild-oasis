@@ -4,6 +4,8 @@ import { getCabins } from "../../services/apiCabins";
 import Spinner from "../../ui/Spinner";
 import styled from "styled-components";
 import CabinRow from "./CabinRow";
+import { useSearchParams } from "react-router-dom";
+import Empty from "../../ui/Empty";
 const Table = styled.div`
   border: 1px solid var(--color-grey-200);
 
@@ -29,17 +31,32 @@ const TableHeader = styled.header`
 `;
 
 function CabinTable() {
-  const {
-    // error,
-    isLoading,
-    data: cabin,
-  } = useQuery({
+  const { isLoading, data: cabin } = useQuery({
     queryKey: ["cabins"],
     queryFn: getCabins,
   });
 
+  const [searchParmas] = useSearchParams();
   if (isLoading) return <Spinner />;
+  if (!cabin?.length) return <Empty resource={"cabins"} />;
 
+  const filterValue = searchParmas.get("discount") || "all";
+  let filteredCabins;
+  // console.log(filteredCabins);
+  if (filterValue === "all") filteredCabins = cabin;
+  if (filterValue === "discount")
+    filteredCabins = cabin?.filter((cabin) => cabin.discount > 0);
+
+  if (filterValue === "no-discount")
+    filteredCabins = cabin?.filter((cabin) => cabin.discount === 0);
+
+  const sortBy = searchParmas.get("sortBy") || "startDate-asc";
+
+  const [field, direction] = sortBy.split("-");
+  const modifier = direction === "asc" ? 1 : -1;
+  const sortedCabins = filteredCabins?.sort(
+    (a, b) => (a[field] - b[field]) * modifier
+  );
   return (
     <Table role="table">
       <TableHeader role="row">
@@ -50,7 +67,7 @@ function CabinTable() {
         <div>Discount</div>
         <div></div>
       </TableHeader>
-      {cabin?.map(
+      {sortedCabins?.map(
         (cabin: {
           id: void;
           created_at: string;

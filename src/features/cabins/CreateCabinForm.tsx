@@ -18,7 +18,10 @@ interface formTypes {
   description: string;
   image: string;
 }
-function CreateCabinForm({ onCloseModal }) {
+interface PropsType {
+  onCloseModal: () => void;
+}
+function CreateCabinForm({ onCloseModal }: PropsType) {
   const [imageUrl, setImageUrl] = useState<string>("");
   const queryClient = useQueryClient();
   const {

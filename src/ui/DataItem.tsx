@@ -1,5 +1,10 @@
+import React from "react";
 import styled from "styled-components";
-
+interface PropsType {
+  label: string;
+  icon: React.ReactNode;
+  children: React.ReactNode;
+}
 const StyledDataItem = styled.div`
   display: flex;
   align-items: center;
@@ -20,7 +25,7 @@ const Label = styled.span`
   }
 `;
 
-function DataItem({ icon, label, children }) {
+function DataItem({ icon, label, children }: PropsType) {
   return (
     <StyledDataItem>
       <Label>
