@@ -10,6 +10,7 @@ interface PropsType {
     field: string;
     direction: string;
   };
+  page: number;
 }
 export async function getBookings({ filter, sortBy, page }: PropsType) {
   let query = supabase

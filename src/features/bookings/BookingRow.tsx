@@ -1,13 +1,15 @@
+import { useState } from "react";
 import styled from "styled-components";
 import { format, isToday } from "date-fns";
-
 import Tag from "../../ui/Tag";
 // import Table from "../../ui/Table";
 
 import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
 import { booking } from "./bookingModal";
-// import { booking } from "./bookingModal";
+import { HiEllipsisVertical, HiEye } from "react-icons/hi2";
+import { useNavigate } from "react-router-dom";
+// import { HiEye } from "react-icons/hi2";
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -46,17 +48,85 @@ const Amount = styled.div`
   font-family: "Sono";
   font-weight: 500;
 `;
+const StyledMenu = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+`;
 
+const StyledToggle = styled.button`
+  background: none;
+  border: none;
+  padding: 0.4rem;
+  border-radius: var(--border-radius-sm);
+  transform: translateX(0.8rem);
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: var(--color-grey-100);
+  }
+
+  & svg {
+    width: 2.4rem;
+    height: 2.4rem;
+    color: var(--color-grey-700);
+  }
+`;
+
+const StyledList = styled.ul`
+  position: fixed;
+
+  background-color: var(--color-grey-0);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--border-radius-md);
+
+  right: 0px;
+  top: 35px;
+`;
+
+const StyledButton = styled.button`
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 1.2rem 2.4rem;
+  font-size: 1.4rem;
+  transition: all 0.2s;
+
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+
+  &:hover {
+    background-color: var(--color-grey-50);
+  }
+
+  & svg {
+    width: 1.6rem;
+    height: 1.6rem;
+    color: var(--color-grey-400);
+    transition: all 0.3s;
+  }
+`;
 function BookingRow({ booking }) {
-  console.log(booking);
-
+  const navigate = useNavigate();
+  const [showDetails, setShowDetails] = useState<boolean>(false);
+  const [sameId, setSameId] = useState(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const statusToTagName: any = {
     unconfirmed: "blue",
     "checked-in": "green",
     "checked-out": "silver",
   };
-
+  function handleShowDetails(id: number) {
+    if (id) {
+      setSameId(id);
+      setShowDetails(!showDetails);
+    } else {
+      setSameId(null);
+      setShowDetails(false);
+    }
+  }
   return (
     <>
       {booking.map((booking: booking) => {
@@ -87,6 +157,21 @@ function BookingRow({ booking }) {
             </Tag>
 
             <Amount>{formatCurrency(booking.totalPrice)}</Amount>
+            <StyledMenu>
+              <StyledToggle onClick={() => handleShowDetails(booking.id)}>
+                <HiEllipsisVertical />
+                {showDetails && sameId === booking.id ? (
+                  <StyledList>
+                    <StyledButton
+                      onClick={() => navigate(`/bookings/${booking.id}`)}
+                    >
+                      <HiEye />
+                      Details
+                    </StyledButton>
+                  </StyledList>
+                ) : null}
+              </StyledToggle>
+            </StyledMenu>
           </TableRow>
         );
       })}
