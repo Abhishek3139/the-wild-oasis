@@ -7,7 +7,11 @@ import Tag from "../../ui/Tag";
 import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
 import { booking } from "./bookingModal";
-import { HiEllipsisVertical, HiEye } from "react-icons/hi2";
+import {
+  HiArrowDownOnSquare,
+  HiEllipsisVertical,
+  HiEye,
+} from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 // import { HiEye } from "react-icons/hi2";
 
@@ -168,6 +172,14 @@ function BookingRow({ booking }) {
                       <HiEye />
                       Details
                     </StyledButton>
+                    {booking.status === "unconfirmed" && (
+                      <StyledButton
+                        onClick={() => navigate(`/checkin/${booking.id}`)}
+                      >
+                        <HiArrowDownOnSquare />
+                        CheckIn
+                      </StyledButton>
+                    )}
                   </StyledList>
                 ) : null}
               </StyledToggle>

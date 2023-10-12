@@ -101,9 +101,11 @@ const Footer = styled.footer`
   color: var(--color-grey-500);
   text-align: right;
 `;
-
+interface PropTypes {
+  booking: allBookingData;
+}
 // A purely presentational component
-function BookingDataBox({ booking }: allBookingData) {
+function BookingDataBox({ booking }: PropTypes) {
   return (
     <StyledBookingDataBox>
       <Header>
