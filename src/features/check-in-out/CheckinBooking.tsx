@@ -14,6 +14,8 @@ import { allBookingData } from "../bookings/bookingModal";
 import Checkbox from "../../ui/Checkbox";
 import { formatCurrency } from "../../utils/helpers";
 import { useCheckIn } from "./useCheckIn";
+import useSettings from "../settings/useSettings";
+// import { settingsType } from "../settings/settingModal";
 
 const Box = styled.div`
   /* Box */
@@ -24,11 +26,14 @@ const Box = styled.div`
 `;
 
 function CheckinBooking() {
+  const [addBreakFast, setAddBreakFast] = useState<boolean>(false);
   const [confirmPaid, setConfirmPaid] = useState<boolean>(false);
+
   const {
     booking,
     isLoading,
   }: { booking: allBookingData; isLoading: boolean } = useBooking();
+  const { settings } = useSettings();
   const moveBack = useMoveBack();
   const { checkIn, isCheckingIn } = useCheckIn();
   function handleCheckin() {
@@ -39,6 +44,8 @@ function CheckinBooking() {
     setConfirmPaid(booking?.isPaid || false);
   }, [booking]);
   if (isLoading) return <Spinner />;
+  const optionalBreakFastPrice =
+    settings.breakfastPrice * booking.numNights * booking.numGuests;
   return (
     <>
       <Row type="horizontal">
@@ -47,6 +54,21 @@ function CheckinBooking() {
       </Row>
 
       <BookingDataBox booking={booking} />
+      {!booking.hasBreakfast && (
+        <Box>
+          <Checkbox
+            checked={addBreakFast}
+            onChange={() => {
+              setAddBreakFast((add) => !add);
+              setConfirmPaid(false);
+            }}
+            id="breakfast"
+          >
+            Want to add breakfast for {optionalBreakFastPrice}
+          </Checkbox>
+        </Box>
+      )}
+
       <Box>
         <Checkbox
           checked={confirmPaid || isCheckingIn}
@@ -55,7 +77,13 @@ function CheckinBooking() {
           id="confirm"
         >
           I confirm that {booking.cabins.name} has paid the total amount of{" "}
-          {formatCurrency(booking.totalPrice)}
+          {!addBreakFast
+            ? formatCurrency(booking.totalPrice)
+            : `${formatCurrency(
+                booking.totalPrice + optionalBreakFastPrice
+              )} ( ${formatCurrency(
+                booking.totalPrice
+              )}+${optionalBreakFastPrice} )`}
         </Checkbox>
       </Box>
       <ButtonGroup>

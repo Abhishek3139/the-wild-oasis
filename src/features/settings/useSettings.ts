@@ -1,6 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { getSettings } from "../../services/apiSettings";
-
+// import { settingsType } from "./settingModal";
+// interface DataTypes {
+//   isLoading: boolean;
+//   data: settingsType;
+//   error: string;
+// }
 function useSettings() {
   const {
     isLoading,
@@ -10,6 +15,7 @@ function useSettings() {
     queryKey: ["settings"],
     queryFn: getSettings,
   });
+
   return { isLoading, error, settings };
 }
 
