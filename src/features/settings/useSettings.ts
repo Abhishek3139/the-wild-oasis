@@ -8,7 +8,7 @@ import { getSettings } from "../../services/apiSettings";
 // }
 function useSettings() {
   const {
-    isLoading,
+    isLoading: isLoadingSettings,
     error,
     data: settings,
   } = useQuery({
@@ -16,7 +16,7 @@ function useSettings() {
     queryFn: getSettings,
   });
 
-  return { isLoading, error, settings };
+  return { isLoadingSettings, error, settings };
 }
 
 export default useSettings;

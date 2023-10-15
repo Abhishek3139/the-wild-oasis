@@ -33,17 +33,29 @@ function CheckinBooking() {
     booking,
     isLoading,
   }: { booking: allBookingData; isLoading: boolean } = useBooking();
-  const { settings } = useSettings();
+  const { settings, isLoadingSettings } = useSettings();
   const moveBack = useMoveBack();
   const { checkIn, isCheckingIn } = useCheckIn();
   function handleCheckin() {
     if (!confirmPaid) return;
-    checkIn(booking.id);
+
+    if (addBreakFast) {
+      checkIn({
+        bookingId: booking.id,
+        breakfast: {
+          hasBreakfast: true,
+          extraPrice: optionalBreakFastPrice,
+          totalPrice: booking.totalPrice + optionalBreakFastPrice,
+        },
+      });
+    } else {
+      checkIn({ bookingId: booking.id });
+    }
   }
   useEffect(() => {
     setConfirmPaid(booking?.isPaid || false);
   }, [booking]);
-  if (isLoading) return <Spinner />;
+  if (isLoading || isLoadingSettings) return <Spinner />;
   const optionalBreakFastPrice =
     settings.breakfastPrice * booking.numNights * booking.numGuests;
   return (
@@ -76,7 +88,7 @@ function CheckinBooking() {
           disabled={confirmPaid}
           id="confirm"
         >
-          I confirm that {booking.cabins.name} has paid the total amount of{" "}
+          I confirm that {booking.cabins.name} has paid the total amount of
           {!addBreakFast
             ? formatCurrency(booking.totalPrice)
             : `${formatCurrency(

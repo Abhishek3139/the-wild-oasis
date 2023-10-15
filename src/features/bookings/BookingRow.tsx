@@ -9,10 +9,13 @@ import { formatDistanceFromNow } from "../../utils/helpers";
 import { booking } from "./bookingModal";
 import {
   HiArrowDownOnSquare,
+  HiArrowUpOnSquare,
   HiEllipsisVertical,
   HiEye,
+  HiTrash,
 } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
+import { useCheckout } from "../check-in-out/useCheckout";
 // import { HiEye } from "react-icons/hi2";
 
 const Cabin = styled.div`
@@ -84,7 +87,7 @@ const StyledList = styled.ul`
   box-shadow: var(--shadow-md);
   border-radius: var(--border-radius-md);
 
-  right: 0px;
+  right: 20px;
   top: 35px;
 `;
 
@@ -115,6 +118,7 @@ const StyledButton = styled.button`
 function BookingRow({ booking }) {
   const navigate = useNavigate();
   const [showDetails, setShowDetails] = useState<boolean>(false);
+  const { checkout, isCheckingout } = useCheckout();
   const [sameId, setSameId] = useState(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const statusToTagName: any = {
@@ -180,6 +184,19 @@ function BookingRow({ booking }) {
                         CheckIn
                       </StyledButton>
                     )}
+                    {booking.status === "checked-in" && (
+                      <StyledButton
+                        onClick={() => checkout(booking.id)}
+                        disabled={isCheckingout}
+                      >
+                        <HiArrowUpOnSquare />
+                        Checked Out
+                      </StyledButton>
+                    )}
+                    <StyledButton>
+                      <HiTrash />
+                      <span>Delete</span>
+                    </StyledButton>
                   </StyledList>
                 ) : null}
               </StyledToggle>
