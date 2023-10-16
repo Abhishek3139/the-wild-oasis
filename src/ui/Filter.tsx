@@ -45,6 +45,7 @@ export default function Filter({ filterField, options }: PropType) {
   const currentFilter = searchParmas.get(filterField) || options[0].value;
   const handleClick = (value: string) => {
     searchParmas.set(filterField, value);
+    if (searchParmas.get("page")) searchParmas.set("page", "1");
     setSearchParams(searchParmas);
   };
   return (
