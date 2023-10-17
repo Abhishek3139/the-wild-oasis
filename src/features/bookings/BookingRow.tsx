@@ -12,10 +12,13 @@ import {
   HiArrowUpOnSquare,
   HiEllipsisVertical,
   HiEye,
-  HiTrash,
+  // HiTrash,
 } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 import { useCheckout } from "../check-in-out/useCheckout";
+// import Modal from "../../ui/Modal";
+// import ConfirmDelete from "../../ui/ConfirmDelete";
+// import { useDeleteBooking } from "./useDeleteBooking";
 // import { HiEye } from "react-icons/hi2";
 
 const Cabin = styled.div`
@@ -120,6 +123,8 @@ function BookingRow({ booking }) {
   const [showDetails, setShowDetails] = useState<boolean>(false);
   const { checkout, isCheckingout } = useCheckout();
   const [sameId, setSameId] = useState(null);
+  // const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+  // const { isDeleting, deleteBooking } = useDeleteBooking();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const statusToTagName: any = {
     unconfirmed: "blue",
@@ -139,7 +144,7 @@ function BookingRow({ booking }) {
     <>
       {booking.map((booking: booking) => {
         return (
-          <TableRow>
+          <TableRow key={booking.id}>
             <Cabin>{booking.cabins.name}</Cabin>
 
             <Stacked>
@@ -165,6 +170,7 @@ function BookingRow({ booking }) {
             </Tag>
 
             <Amount>{formatCurrency(booking.totalPrice)}</Amount>
+
             <StyledMenu>
               <StyledToggle onClick={() => handleShowDetails(booking.id)}>
                 <HiEllipsisVertical />
@@ -193,14 +199,23 @@ function BookingRow({ booking }) {
                         Checked Out
                       </StyledButton>
                     )}
-                    <StyledButton>
+                    {/* <StyledButton onClick={() => setIsOpenModal(true)}>
                       <HiTrash />
                       <span>Delete</span>
-                    </StyledButton>
+                    </StyledButton> */}
                   </StyledList>
                 ) : null}
               </StyledToggle>
             </StyledMenu>
+            {/* {isOpenModal && (
+              <Modal onClose={() => setIsOpenModal(false)}>
+                <ConfirmDelete
+                  disabled={isDeleting}
+                  onConfirm={() => deleteBooking(booking.id)}
+                  resourceName="booking"
+                />
+              </Modal>
+            )} */}
           </TableRow>
         );
       })}

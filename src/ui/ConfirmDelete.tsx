@@ -6,6 +6,7 @@ interface PropsType {
   resourceName: string;
   onConfirm: () => void;
   disabled: boolean;
+  cancel: () => void;
 }
 const StyledConfirmDelete = styled.div`
   width: 40rem;
@@ -26,8 +27,9 @@ const StyledConfirmDelete = styled.div`
 `;
 function ConfirmDelete({
   resourceName,
-  // onConfirm
+  onConfirm,
   disabled,
+  cancel,
 }: PropsType) {
   return (
     <StyledConfirmDelete>
@@ -38,10 +40,10 @@ function ConfirmDelete({
       </p>
 
       <div>
-        <Button variation="secondary" disabled={disabled}>
+        <Button variation="secondary" disabled={disabled} onClick={cancel}>
           Cancel
         </Button>
-        <Button variation="danger" disabled={disabled}>
+        <Button variation="danger" disabled={disabled} onClick={onConfirm}>
           Delete
         </Button>
       </div>

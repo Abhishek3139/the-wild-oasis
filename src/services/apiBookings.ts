@@ -130,7 +130,7 @@ export async function updateBooking(id: number, obj: any) {
   return data;
 }
 
-export async function deleteBooking(id: number) {
+export async function deleteBookingApi(id: number) {
   // REMEMBER RLS POLICIES
   const { data, error } = await supabase.from("bookings").delete().eq("id", id);
 
