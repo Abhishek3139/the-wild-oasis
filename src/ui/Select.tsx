@@ -21,7 +21,6 @@ const StyledSelect = styled.select<PropsType>`
   box-shadow: var(--shadow-sm);
 `;
 function Select({ options, value, onChange, ...props }: PropsType) {
-  console.log(options);
   return (
     <StyledSelect value={value} onChange={onChange} {...props}>
       {options?.map((option) => (
