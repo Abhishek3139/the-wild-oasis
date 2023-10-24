@@ -13,7 +13,7 @@ export const useLogin = () => {
     mutationFn: ({ email, password }: types) => loginApi({ email, password }),
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onSuccess: (user) => {
-      queryClient.setQueriesData(["user"], user);
+      queryClient.setQueryData(["user"], user.user);
       navigate("/dashboard", { replace: true });
     },
     onError: () => {
