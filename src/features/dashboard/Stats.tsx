@@ -15,10 +15,10 @@ function Stats({ bookings, confiremedStays, numDays, cabinCount }) {
     0
   );
   const checkins = confiremedStays.length;
-
   const occuption =
     confiremedStays.reduce((acc, value) => acc + value.numNights, 0) /
     (numDays * cabinCount);
+
   return (
     <>
       <Stat
@@ -43,7 +43,7 @@ function Stats({ bookings, confiremedStays, numDays, cabinCount }) {
         title={"Occupancy rate"}
         color={"yellow"}
         icon={<HiOutlineChartBar />}
-        value={Math.round(occuption) * 100 + "%"}
+        value={Math.round(occuption * 100) + "%"}
       />
     </>
   );
