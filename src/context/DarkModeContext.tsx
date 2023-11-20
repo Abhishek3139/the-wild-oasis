@@ -1,9 +1,18 @@
-import { createContext, useContext, useEffect } from "react";
+import { createContext, useContext, useEffect, ReactNode } from "react";
 import { useLocalStorageState } from "../hooks/useLocalStorageState";
 
-export const DarkModeContext = createContext();
+interface DarkModeContextProps {
+  isDarkMode: boolean;
+  toggleDarkMode: () => void;
+}
+interface DarkModeProviderProps {
+  children: ReactNode;
+}
+export const DarkModeContext = createContext<DarkModeContextProps | undefined>(
+  undefined
+);
 
-function DarkModeProvider({ children }) {
+function DarkModeProvider({ children }: DarkModeProviderProps) {
   const [isDarkMode, setIsDarkMode] = useLocalStorageState(false, "isDarkMode");
   function toggleDarkMode() {
     setIsDarkMode((isDark: boolean) => !isDark);
