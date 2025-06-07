@@ -44,7 +44,8 @@ function SalesChart({ bookings, numDayes }:any) {
         .reduce((acc:number, cur:any) => acc + cur.extraPrice, 0),
     };
   });
-
+const startDate = allDates.at(0) ?? new Date();
+const endDate = allDates.at(-1) ?? new Date();
   const colors = isDarkMode
     ? {
         totalSales: { stroke: "#4f46e5", fill: "#4f46e5" },
@@ -61,8 +62,8 @@ function SalesChart({ bookings, numDayes }:any) {
   return (
     <StyledSalesChart>
       <Heading as="h2">
-        Sales from {format(allDates.at(0), "MMM dd yyy")} &mdash;
-        {format(allDates.at(-1), "MMM dd yyyy")}
+        Sales from {format(startDate, "MMM dd yyy")} &mdash;
+        {format(endDate, "MMM dd yyyy")}
       </Heading>
       <ResponsiveContainer height={300} width="100%">
         <AreaChart data={data}>
