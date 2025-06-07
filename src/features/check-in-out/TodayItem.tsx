@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import styled from "styled-components";
 import Tag from "../../ui/Tag";
 import { Flag } from "../../ui/Flag";
@@ -24,7 +25,7 @@ const Guest = styled.div`
   font-weight: 500;
 `;
 
-function TodayItem({ activity }) {
+function TodayItem({ activity }:any) {
   return (
     <StyledTodayItem>
       {activity.status === "unconfirmed" && <Tag type="green">Arriving</Tag>}

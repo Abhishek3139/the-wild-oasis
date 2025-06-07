@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { InputsTypes } from "../features/authentication/SignupForm";
 import supabase, { supabaseUrl } from "./supabase";
 
@@ -58,7 +59,7 @@ export async function UpdateCurrentUser({
   avatar: string;
 }) {
   //update password or fullname
-  let updatedData;
+  let updatedData:any
   if (password) updatedData = { password };
   if (fullName) updatedData = { data: { fullName } };
   const { data, error } = await supabase.auth.updateUser(updatedData);

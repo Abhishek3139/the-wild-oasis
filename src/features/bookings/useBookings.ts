@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getBookings } from "../../services/apiBookings";
 import { useSearchParams } from "react-router-dom";
@@ -8,7 +9,7 @@ export function useBookings() {
   const [searchParams] = useSearchParams();
   //filter
   const filterValue = searchParams.get("status");
-  const filter =
+  const filter:any =
     !filterValue || filterValue === "all"
       ? null
       : { field: "status", value: filterValue };
@@ -30,7 +31,7 @@ export function useBookings() {
   });
 
   //pre-fetching
-  const pageCount = Math.ceil(count / PAGE_SIZE);
+  const pageCount = Math.ceil(count ??0/ PAGE_SIZE);
   if (page < pageCount)
     queryClient.prefetchQuery({
       queryKey: ["bookings", filter, sortBy, page + 1],

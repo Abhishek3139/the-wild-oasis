@@ -44,7 +44,6 @@ function CreateCabinForm({ onCloseModal }: PropsType) {
   });
 
   const onSubmit: SubmitHandler<formTypes> = (data) => {
-    console.log(data);
     const i = imageUrl.split("\\")[imageUrl.split("\\").length - 1];
     mutate({
       ...data,

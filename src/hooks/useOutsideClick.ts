@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useRef } from "react";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function useOutsideClick(handler: any, listenCapturing: boolean = true) {
-  const ref = useRef();
+  const ref:any = useRef();
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     function handleClick(e: any) {

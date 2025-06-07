@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import styled from "styled-components";
 import Heading from "./Heading";
 import GlobalStyle from "../styles/GlobalStyles";
@@ -33,7 +34,7 @@ const Box = styled.div`
   }
 `;
 
-function ErrorFallback({ error ,resetErrorBoundary}) {
+function ErrorFallback({ error ,resetErrorBoundary}:any) {
   return (
     <>
       <GlobalStyle />

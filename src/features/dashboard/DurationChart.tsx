@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import styled from "styled-components";
 import Heading from "../../ui/Heading";
 import {
@@ -21,7 +22,7 @@ interface DurationChartData {
 }
 
 interface DurationChartProps {
-  confirmedStays: StayData[];
+  confirmedStays: any;
 }
 const ChartBox = styled.div`
   /* Box */
@@ -185,7 +186,7 @@ function DurationChart({ confirmedStays }: DurationChartProps) {
           <Legend
             verticalAlign="middle"
             align="right"
-            width="30%"
+            widths={"30%"}
             layout="vertical"
             iconSize={15}
             iconType="circle"

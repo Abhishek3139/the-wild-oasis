@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // import { useUpdateSetting } from "features/settings/useUpdateSetting";
 
 import useSettings from "./useSettings";
@@ -10,14 +11,15 @@ import { FocusEvent } from "react";
 
 function UpdateSettingsForm() {
   const {
-    settings: {
+    settings,
+    isLoading,
+  }:any = useSettings();
+  const {
       minBookingLength,
       maxBookingLength,
       maxGuestsPerBooking,
       breakfastPrice,
-    } = {},
-    isLoading,
-  } = useSettings();
+    }=settings
   const { mutate, isLoading: isUpdating } = useUpdateSetting();
 
   if (isLoading) return <Spinner />;

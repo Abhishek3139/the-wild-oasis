@@ -42,7 +42,6 @@ function CabinTable() {
 
   const filterValue = searchParmas.get("discount") || "all";
   let filteredCabins;
-  // console.log(filteredCabins);
   if (filterValue === "all") filteredCabins = cabin;
   if (filterValue === "discount")
     filteredCabins = cabin?.filter((cabin) => cabin.discount > 0);

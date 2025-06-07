@@ -56,7 +56,8 @@ const Button = styled.button`
 `;
 
 function Modal({ children, onClose }: Propstype) {
-  const ref = useOutsideClick(onClose);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const ref:any = useOutsideClick(onClose);
   return (
     <Overlay>
       <StyledModal ref={ref}>

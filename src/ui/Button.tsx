@@ -52,17 +52,17 @@ const variations = {
   `,
 };
 
+
+
 export const Button = styled.button<PropsType>`
   border: none;
   border-radius: var(--border-radius-sm);
   box-shadow: var(--shadow-sm);
 
-  ${(props) => sizes[props?.size]}
-  ${(props) => variations[props?.variation]} /* add hover  */
-  /* &:hover {
-    background-color: var(--color-brand-700);
-  } */
+  ${(props) => sizes[props.size ?? "medium"]}
+  ${(props) => variations[props.variation ?? "primary"]}
 `;
+
 Button.defaultProps = {
   variation: "primary",
   size: "medium",

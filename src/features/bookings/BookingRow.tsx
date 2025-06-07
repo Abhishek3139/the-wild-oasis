@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import styled from "styled-components";
 import { format, isToday } from "date-fns";
@@ -118,7 +119,7 @@ const StyledButton = styled.button`
     transition: all 0.3s;
   }
 `;
-function BookingRow({ booking }) {
+function BookingRow({ booking }:any) {
   const navigate = useNavigate();
   const [showDetails, setShowDetails] = useState<boolean>(false);
   const { checkout, isCheckingout } = useCheckout();
@@ -131,7 +132,7 @@ function BookingRow({ booking }) {
     "checked-in": "green",
     "checked-out": "silver",
   };
-  function handleShowDetails(id: number) {
+  function handleShowDetails(id: any) {
     if (id) {
       setSameId(id);
       setShowDetails(!showDetails);

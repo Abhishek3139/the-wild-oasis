@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import styled from "styled-components";
 import { useState } from "react";
 import BookingDataBox from "./BookingDataBox";
@@ -34,7 +35,7 @@ function BookingDetail() {
 
   const moveBack = useMoveBack();
 
-  const statusToTagName = {
+  const statusToTagName:any = {
     unconfirmed: "blue",
     "checked-in": "green",
     "checked-out": "silver",

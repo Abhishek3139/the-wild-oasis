@@ -14,11 +14,9 @@ function UpdatePasswordForm() {
     useForm<inputstypes>();
   const { errors } = formState;
 
-  const { updateUser, isUpdating } = useUpdateUser();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { updateUser, isUpdating }:any = useUpdateUser();
 
-  // function onSubmit({ password }) {
-  //   updateUser({ password }, { onSuccess: reset });
-  // }
 
   const onSubmit: SubmitHandler<inputstypes> = ({ password }) => {
     updateUser({ password }, { onSuccess: reset });
@@ -62,7 +60,7 @@ function UpdatePasswordForm() {
         />
       </FormRow>
       <FormRow>
-        <Button onClick={reset} type="reset" variation="secondary">
+        <Button onClick={()=>reset()} type="reset" variation="secondary">
           Cancel
         </Button>
         <Button disabled={isUpdating}>Update password</Button>

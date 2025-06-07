@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Button from "../../ui/Button";
 import { useCheckout } from "./useCheckout";
 
-function CheckoutButton({ bookingId }) {
+function CheckoutButton({ bookingId }:any) {
   const { checkout, isCheckingout } = useCheckout();
   return (
     <Button

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import styled from "styled-components";
 import DashboardBox from "./DashboardBox";
 import Heading from "../../ui/Heading";
@@ -23,7 +24,7 @@ const StyledSalesChart = styled(DashboardBox)`
   }
 `;
 
-function SalesChart({ bookings, numDayes }) {
+function SalesChart({ bookings, numDayes }:any) {
   const { isDarkMode } = useDarkMode();
 
   const allDates = eachDayOfInterval({
@@ -35,12 +36,12 @@ function SalesChart({ bookings, numDayes }) {
     return {
       label: format(date, "MMM dd"),
       totalSales: bookings
-        .filter((booking) => isSameDay(date, new Date(booking.created_at)))
-        .reduce((acc, cur) => acc + cur.totalPrice, 0),
+        .filter((booking:any) => isSameDay(date, new Date(booking.created_at)))
+        .reduce((acc:number, cur:any) => acc + cur.totalPrice, 0),
 
       extrasSales: bookings
-        .filter((booking) => isSameDay(date, new Date(booking.created_at)))
-        .reduce((acc, cur) => acc + cur.extraPrice, 0),
+        .filter((booking:any) => isSameDay(date, new Date(booking.created_at)))
+        .reduce((acc:number, cur:any) => acc + cur.extraPrice, 0),
     };
   });
 

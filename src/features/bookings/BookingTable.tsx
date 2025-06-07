@@ -72,7 +72,7 @@ function BookingTable() {
       </TableHeader>
 
       <StyledBody>
-        <BookingRow key={bookings.id} booking={bookings} />
+        <BookingRow  booking={bookings} />
       </StyledBody>
       <Footer>
         <Pagination count={count} />
